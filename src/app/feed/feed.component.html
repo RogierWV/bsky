@@ -1,0 +1,5 @@
+@for (post of this.feed; track $index) {
+    <p>{{post.post.author.displayName}}</p>
+} @empty {
+    nothing found
+}
