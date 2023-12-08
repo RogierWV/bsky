@@ -3,7 +3,7 @@ import { FeedComponent } from './feed/feed.component';
 
 export const routes: Routes = [
     {
-        path: 'feed',
+        path: '',
         component: FeedComponent
     }
 ];

@@ -1,5 +1,7 @@
-@for (post of this.feed; track $index) {
-    <p>{{post.post.author.displayName}}</p>
-} @empty {
-    nothing found
-}
+<div class="feed">
+    @for (post of this.feed; track $index) {
+        <app-post [post]="post"></app-post>
+    } @empty {
+        <p>nothing found</p>
+    }
+</div>
