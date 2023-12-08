@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class AccountService {
 
+  did: string|undefined;
   loggedIn : boolean = false;
   loggedInChange : Subject<boolean> = new Subject<boolean>();
 
@@ -22,6 +23,7 @@ export class AccountService {
         identifier: email,
         password: pass
       });
+      this.did = this.atp.agent.session?.did;
       this.loggedInChange.next(true);
     }
   }

@@ -18,11 +18,10 @@ export class FeedComponent {
     private atp: AtpService,
     private act: AccountService
   ) {
-    this.act.loggedInChange.subscribe(v => {
-      if(v) {
+    this.act.loggedInChange.subscribe(loggedIn => {
+      if(loggedIn) {
         this.atp.agent.getTimeline().then(tlres => {
           if(tlres.success) {
-            console.log(JSON.stringify(tlres.data.feed, null, 2));
             this.feed = tlres.data.feed;
           }
         });
