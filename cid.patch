@@ -1,0 +1,6 @@
+160,161c160,161
+< export type MultibaseEncoder<Prefix> = import('./bases/interface').MultibaseEncoder<Prefix>;
+< export type MultibaseDecoder<Prefix> = import('./bases/interface').MultibaseDecoder<Prefix>;
+---
+> export type MultibaseEncoder<Prefix extends string> = import('./bases/interface').MultibaseEncoder<Prefix>;
+> export type MultibaseDecoder<Prefix extends string> = import('./bases/interface').MultibaseDecoder<Prefix>;
