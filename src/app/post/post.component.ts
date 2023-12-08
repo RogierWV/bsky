@@ -25,31 +25,23 @@ export class PostComponent implements OnInit {
   img: {src: string, alt: string}[]|null = null;
   content: string = "Not parsed";
 
-  async ngOnInit() {
+  ngOnInit() {
     const p = this.post?.post.record;
     if(AppBskyFeedPost.isRecord(p)){
       const res = AppBskyFeedPost.validateRecord(p);
       if(res.success) {
         this.content = p.text;
-        // this.content.replace("\n", "<br>");
         let imgs = p.embed;
         if(AppBskyEmbedImages.isMain(imgs)) {
-          // let imgsres = AppBskyEmbedImages.validateMain(imgs);
-          // if(imgsres.success) {
-          //   imgs.images
-          //     .filter(i => AppBskyEmbedImages.isImage(i))
-          //     .filter(i => AppBskyEmbedImages.validateImage(i).success)
-          //     .map(i => i);
-          // }
           console.log("AppBskyEmbedImages.Main")
-          this.img = await Promise.all(imgs.images.map(async i => { 
+          this.img = imgs.images.map( i => { 
             return {
               src:
                 "https://bsky.social/xrpc/com.atproto.sync.getBlob?did="+ this.post?.post.author.did +
                 "&cid=" + i.image.ref,
               alt: i.alt 
             }
-          }));
+          });
         } else if (AppBskyEmbedExternal.isMain(imgs)) {
           // this.img = [imgs.external.uri];
           console.log("AppBskyEmbedExternal.Main")
