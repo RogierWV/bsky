@@ -6,7 +6,6 @@ import { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedRecord, AppBskyEm
 import { RouterLink } from '@angular/router';
 import { AtpService } from '../atp.service';
 import { CommonModule } from '@angular/common';
-import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-post',
@@ -17,8 +16,7 @@ import { AccountService } from '../account.service';
 })
 export class PostComponent implements OnInit {
   constructor(
-    private atp: AtpService,
-    private act: AccountService
+    private atp: AtpService
   ) {}
 
   @Input() post: FeedViewPost|null = null;

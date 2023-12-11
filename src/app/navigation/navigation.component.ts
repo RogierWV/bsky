@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog'
 import { LoginComponent } from '../login/login.component';
-import { AccountService } from '../account.service';
 import { RouterOutlet } from '@angular/router';
+import { AtpService } from '../atp.service';
 
 @Component({
   selector: 'app-navigation',
@@ -31,7 +31,7 @@ import { RouterOutlet } from '@angular/router';
 export class NavigationComponent {
   constructor(
     public dialog: MatDialog,
-    public actSvc : AccountService
+    public atp: AtpService
   ) {}
 
   private breakpointObserver = inject(BreakpointObserver);
@@ -47,7 +47,7 @@ export class NavigationComponent {
   
       dialogRef.afterClosed().subscribe((result: {__zone_symbol__value: {email: string|null, password: string|null}}) => {
         // console.log(result);
-        this.actSvc.login(result.__zone_symbol__value.email, result.__zone_symbol__value.password);
+        this.atp.login(result.__zone_symbol__value.email, result.__zone_symbol__value.password);
       });
     }
 }
