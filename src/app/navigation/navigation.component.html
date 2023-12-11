@@ -22,7 +22,7 @@
         </button>
       }
       <span>bsky</span>
-      @if(!this.actSvc.loggedIn) {
+      @if(!this.atp.loggedIn) {
         <span class="nav-right"><button mat-button (click)="openDialog()">Login</button></span>
       }
     </mat-toolbar>
