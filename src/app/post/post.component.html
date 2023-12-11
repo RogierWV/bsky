@@ -7,16 +7,17 @@
         </mat-card-header>
     </a>
 
-    <a [routerLink]="'/post/'+this.post?.post?.cid"><mat-card-content>
-        <!-- <p>
-            {{this.img}}
-        </p> -->
-        @for(img of this.img; track img) {
-            <img class="card-img" mat-card-image [src]="img.src" [alt]="img.alt">
-        }
-        <p class="content">
-            {{this.content}}
-        </p>
+    <a [routerLink]="'/post/'+this.post?.post?.cid">
+        <mat-card-content>
+            <!-- <p>
+                {{this.img}}
+            </p> -->
+            @for(img of this.img; track img) {
+                <img class="card-img" mat-card-image [src]="img.src" [alt]="img.alt" loading="lazy" decoding="async" />
+            }
+            <p class="content">
+                {{this.content}}
+            </p>
         </mat-card-content>
     </a>
     <mat-card-actions>

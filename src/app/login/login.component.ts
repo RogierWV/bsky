@@ -43,13 +43,10 @@ export class LoginComponent {
   password = new FormControl('', [Validators.required, Validators.minLength(5)]);
   matcher = new LoginErrorStateMatcher();
 
-  constructor(
-    ) {}
-
-    async exit() {
-      return {
-        email:    this.email.value, 
-        password: this.password.value
-      };
-    }
+  exit() {
+    return {
+      email:    this.email.value, 
+      password: this.password.value
+    };
+  }
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AtpService } from '../atp.service';
 import { CommonModule } from '@angular/common';
 import { FeedViewPost } from '@atproto/api/dist/client/types/app/bsky/feed/defs';
-import { AccountService } from '../account.service';
 import { PostComponent } from '../post/post.component';
 
 @Component({
@@ -15,16 +14,17 @@ import { PostComponent } from '../post/post.component';
 export class FeedComponent {
   feed: FeedViewPost[] = [];
   constructor(
-    private atp: AtpService,
-    private act: AccountService
+    private atp: AtpService
   ) {
-    this.act.loggedInChange.subscribe(loggedIn => {
+    this.atp.loggedInChange.subscribe(loggedIn => {
       if(loggedIn) {
         this.atp.agent.getTimeline().then(tlres => {
           if(tlres.success) {
             this.feed = tlres.data.feed;
           }
         });
+      } else {
+        this.feed = [];
       }
     })
   }

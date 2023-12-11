@@ -8,10 +8,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { LoginComponent } from '../login/login.component';
-import { AccountService } from '../account.service';
 import { RouterOutlet } from '@angular/router';
+import { AtpService } from '../atp.service';
+import { ProfileDialogComponent } from '../profile/profile-dialog/profile-dialog.component';
 
 @Component({
   selector: 'app-navigation',
@@ -29,9 +30,11 @@ import { RouterOutlet } from '@angular/router';
   ]
 })
 export class NavigationComponent {
+  dialogRef: MatDialogRef<any, any> | undefined;
+
   constructor(
     public dialog: MatDialog,
-    public actSvc : AccountService
+    public atp : AtpService
   ) {}
 
   private breakpointObserver = inject(BreakpointObserver);
@@ -42,12 +45,30 @@ export class NavigationComponent {
       shareReplay()
     );
 
-    openDialog() {
-      const dialogRef = this.dialog.open(LoginComponent);
-  
-      dialogRef.afterClosed().subscribe((result: {__zone_symbol__value: {email: string|null, password: string|null}}) => {
-        // console.log(result);
-        this.actSvc.login(result.__zone_symbol__value.email, result.__zone_symbol__value.password);
-      });
+  openDialog() {
+    if(this.atp.loggedIn) 
+      this.profileDialog();
+    else this.loginDialog();
+  }
+
+  profileDialog() {
+    if(this.dialogRef) {
+      this.dialogRef.close();
+    } else {
+      this.dialogRef = this.dialog.open(ProfileDialogComponent, {data: {did: this.atp.agent.session?.did}, hasBackdrop: false});
+      this.dialogRef.afterClosed().subscribe(r => this.dialogRef = undefined);
     }
+  }
+
+  loginDialog() {
+    const dialogRef = this.dialog.open(LoginComponent);
+  
+    dialogRef.afterClosed().subscribe((result: {email: string|null, password: string|null}) => {
+      this.atp.login(result.email, result.password);
+    });
+  }
+
+  logout() {
+    this.atp.logout();
+  }
 }

@@ -1,0 +1,13 @@
+<mat-card class="card">
+    <img class="banner" mat-card-image [src]="this.banner" loading="lazy" decoding="async" />
+    <mat-card-header>
+        <img mat-card-avatar class="header-image" src="{{this.avatar}}" alt="" loading="lazy" decoding="async">
+        <mat-card-title-group>
+            <mat-card-title>{{this.displayName || this.handle}}</mat-card-title>
+            <mat-card-subtitle>{{this.handle}}</mat-card-subtitle>
+        </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{this.bio}}</p>
+    </mat-card-content>
+</mat-card>
