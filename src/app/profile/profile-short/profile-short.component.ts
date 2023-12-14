@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AtpService } from '../../atp.service';
 import {MatCardModule} from '@angular/material/card';
 
@@ -10,8 +10,8 @@ import {MatCardModule} from '@angular/material/card';
   templateUrl: './profile-short.component.html',
   styleUrl: './profile-short.component.sass'
 })
-export class ProfileShortComponent implements OnInit {
-  @Input() did: string | undefined;
+export class ProfileShortComponent implements OnChanges {
+  @Input() id: string | undefined;
 
   avatar: string | undefined;
   banner: string | undefined;
@@ -25,9 +25,10 @@ export class ProfileShortComponent implements OnInit {
     private atp: AtpService
   ) {}
 
-  ngOnInit() {
-    if(this.did)
-      this.atp.agent.getProfile({actor:this.did}).then(res => {
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("shortProfile.id: ", this.id)
+    if(this.id)
+      this.atp.agent.getProfile({actor:this.id}).then(res => {
         if(res.success) {
           if(res.data.avatar) this.avatar = res.data.avatar;
           if(res.data.banner) this.banner = res.data.banner;

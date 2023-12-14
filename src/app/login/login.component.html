@@ -1,25 +1,28 @@
 <h2 mat-dialog-title>Log in</h2>
 <mat-dialog-content>
-    <form class="login-form">
-        <mat-form-field class="login-full-width">
-          <mat-label>Email</mat-label>
-          <input id="email" type="email" matInput [formControl]="email" [errorStateMatcher]="matcher"
-                 placeholder="Ex. pat@example.com">
-          <mat-hint>Errors appear instantly!</mat-hint>
-          @if (email.hasError('email') && !email.hasError('required')) {
-            <mat-error>Please enter a valid email address</mat-error>
-          }
-          @if (email.hasError('required')) {
-            <mat-error>Email is <strong>required</strong></mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field class="login-full-width">
-            <mat-label>Password</mat-label>
-            <input id="password" type="password" matInput [formControl]="password" [errorStateMatcher]="matcher" placeholder="***">
-        </mat-form-field>
-      </form>
+  <form class="login-form">
+    <mat-form-field class="login-full-width">
+      <mat-label>Email</mat-label>
+      <input id="email" type="email" matInput [formControl]="email" [errorStateMatcher]="matcher"
+              placeholder="Ex. pat@example.com" >
+      <mat-hint>Errors appear instantly!</mat-hint>
+      @if (email.hasError('email') && !email.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+      }
+      @if (email.hasError('required')) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="login-full-width">
+      <mat-label>Password</mat-label>
+      <input id="password" [type]="hide? 'password' : 'text'" matInput [formControl]="password" [errorStateMatcher]="matcher" placeholder="***">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="exit()" cdkFocusInitial>Log in</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="submit()" cdkFocusInitial>Log in</button>
 </mat-dialog-actions>

@@ -56,7 +56,7 @@ export class NavigationComponent {
       this.dialogRef.close();
     } else {
       this.dialogRef = this.dialog.open(ProfileDialogComponent, {data: {did: this.atp.agent.session?.did}, hasBackdrop: false});
-      this.dialogRef.afterClosed().subscribe(r => this.dialogRef = undefined);
+      this.dialogRef.afterClosed().subscribe(r => delete this.dialogRef);
     }
   }
 

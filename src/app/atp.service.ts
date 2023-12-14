@@ -19,11 +19,15 @@ export class AtpService {
   constructor(
   ) {
     this.loggedInChange.subscribe((v) => this.loggedIn = v);
-    const sessData = localStorage.getItem("bskySession") || "{}";
-    const sessDataParsed = JSON.parse(sessData);
-    if(this.isAtpSessionData(sessDataParsed)) {
-      const res = this.agent.resumeSession(sessDataParsed);
-      res.then(r => {if(r.success) this.loggedInChange.next(true)});
+    try { 
+      const sessData = localStorage.getItem("bskySession") || "{}";
+      const sessDataParsed = JSON.parse(sessData);
+      if(this.isAtpSessionData(sessDataParsed)) {
+        const res = this.agent.resumeSession(sessDataParsed);
+        res.then(r => {if(r.success) this.loggedInChange.next(true)});
+      }
+    } catch(e) {
+      console.error(e);
     }
   }
 

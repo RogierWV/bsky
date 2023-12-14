@@ -1,5 +1,5 @@
 <mat-card class="card">
-    <a [routerLink]="'/user/'+this.post?.post?.author?.handle">
+    <a [routerLink]="['/profile', this.post?.post?.author?.handle]">
         <mat-card-header>
             <img mat-card-avatar class="header-image" src="{{this.post?.post?.author?.avatar}}" alt="">
             <mat-card-title>{{this.post?.post?.author?.displayName}}</mat-card-title>
