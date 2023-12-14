@@ -13,6 +13,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
@@ -33,23 +34,23 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
 })
 export class LoginComponent {
 
+  hide: boolean = true;
+
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(5)]);
   matcher = new LoginErrorStateMatcher();
 
-  constructor(
-    ) {}
-
-    async exit() {
-      return {
-        email:    this.email.value, 
-        password: this.password.value
-      };
-    }
+  submit() {
+    return {
+      email:    this.email.value, 
+      password: this.password.value
+    };
+  }
 }

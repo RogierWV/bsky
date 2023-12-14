@@ -1,5 +1,5 @@
 <mat-card class="card">
-    <a [routerLink]="'/user/'+this.post?.post?.author?.handle">
+    <a [routerLink]="['/profile', this.post?.post?.author?.handle]">
         <mat-card-header>
             <img mat-card-avatar class="header-image" src="{{this.post?.post?.author?.avatar}}" alt="">
             <mat-card-title>{{this.post?.post?.author?.displayName}}</mat-card-title>
@@ -7,16 +7,17 @@
         </mat-card-header>
     </a>
 
-    <a [routerLink]="'/post/'+this.post?.post?.cid"><mat-card-content>
-        <!-- <p>
-            {{this.img}}
-        </p> -->
-        @for(img of this.img; track img) {
-            <img class="card-img" mat-card-image [src]="img.src" [alt]="img.alt">
-        }
-        <p class="content">
-            {{this.content}}
-        </p>
+    <a [routerLink]="'/post/'+this.post?.post?.cid">
+        <mat-card-content>
+            <!-- <p>
+                {{this.img}}
+            </p> -->
+            @for(img of this.img; track img) {
+                <img class="card-img" mat-card-image [src]="img.src" [alt]="img.alt" loading="lazy" decoding="async" />
+            }
+            <p class="content">
+                {{this.content}}
+            </p>
         </mat-card-content>
     </a>
     <mat-card-actions>

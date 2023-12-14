@@ -12,17 +12,22 @@ export class AtpService {
       localStorage.setItem("bskySession", JSON.stringify(sess));
     }
   });
+
   loggedIn : boolean = false;
   loggedInChange : Subject<boolean> = new Subject<boolean>();
 
   constructor(
   ) {
     this.loggedInChange.subscribe((v) => this.loggedIn = v);
-    const sessData = localStorage.getItem("bskySession") || "{}";
-    const sessDataParsed = JSON.parse(sessData);
-    if(this.isAtpSessionData(sessDataParsed)) {
-      const res = this.agent.resumeSession(sessDataParsed);
-      res.then(r => {if(r.success) this.loggedInChange.next(true)});
+    try { 
+      const sessData = localStorage.getItem("bskySession") || "{}";
+      const sessDataParsed = JSON.parse(sessData);
+      if(this.isAtpSessionData(sessDataParsed)) {
+        const res = this.agent.resumeSession(sessDataParsed);
+        res.then(r => {if(r.success) this.loggedInChange.next(true)});
+      }
+    } catch(e) {
+      console.error(e);
     }
   }
 
@@ -43,6 +48,11 @@ export class AtpService {
     }
   }
 
+  logout() {
+    localStorage.removeItem("bskySession");
+    this.agent.session = undefined;
+    this.loggedInChange.next(false);
+  }
   // async login(email: string, pass: string) {
   //   await this.agent.login({identifier:email, password:pass});
   // }
