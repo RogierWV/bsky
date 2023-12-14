@@ -56,9 +56,5 @@ export class AtpService {
   // async login(email: string, pass: string) {
   //   await this.agent.login({identifier:email, password:pass});
   // }
-
-  public getAgent() {
-    return this.agent;
-  }
 }
 
